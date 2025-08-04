@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { FiX, FiPlus, FiUser, FiPhone, FiMail, FiTrash2, FiPlay, FiPause, FiSkipForward } from "react-icons/fi"
 
+
 function GroupDetails({ groupId, onBack }) {
   const [group, setGroup] = useState(null)
   const [contacts, setContacts] = useState([])
