@@ -183,16 +183,16 @@ function GroupDetails({ groupId, onBack }) {
           "Content-Type": "application/json",
         },
       })
-
+  
       const apiKeysResult = await apiKeysResponse.json()
       let apiKey = "629lXqsiDk85lfMub7RsN73u4741MlOl4Dv8kJE9" // fallback
-
+  
       if (apiKeysResult.success && apiKeysResult.data.length > 0) {
         // Use the first available API key or find a specific one
         apiKey = apiKeysResult.data[0].key
       }
       console.log(apiKey)
-
+  
       const callPayload = {
         transaction_id: "CTI_BOT_DIAL",
         phone_num: contact.phone.replace(/[^\d]/g, ""), // Remove non-digits
@@ -209,22 +209,25 @@ function GroupDetails({ groupId, onBack }) {
           group_id: groupId,
         },
       }
-
-      const response = await fetch("https://3neysomt18.execute-api.us-east-1.amazonaws.com/dev/clicktobot", {
+  
+      // Use your backend proxy instead of direct API call
+      const response = await fetch(`${API_BASE}/proxy/clicktobot`, {
         method: "POST",
         headers: {
-          "X-CLIENT": "czobd",
-          "X-API-KEY": apiKey,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(callPayload),
+        body: JSON.stringify({
+          apiKey: apiKey,
+          payload: callPayload
+        }),
       })
-
+  
       const result = await response.json()
-
+  
       return {
-        success: response.ok,
-        data: result,
+        success: result.success,
+        data: result.data,
         contact: contact,
         timestamp: new Date(),
       }
