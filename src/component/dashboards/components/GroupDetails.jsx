@@ -196,18 +196,15 @@ function GroupDetails({ groupId, onBack }) {
       const callPayload = {
         transaction_id: "CTI_BOT_DIAL",
         phone_num: contact.phone.replace(/[^\d]/g, ""), // Remove non-digits
-        uniqueid: `${groupId}_${contact._id}_${Date.now()}`,
-        callerid: "168353225", // Static caller ID as requested
+        uniqueid: `abc123xyz`,
+        callerid: "168353225",
         uuid: clientData?.clientId || "client-uuid-001",
-        resFormat: 3,
         custom_param: {
-          campaign_id: `group_${groupId}`,
-          region: "india",
-          priority: "high",
-          agent_id: agent._id,
-          contact_name: contact.name,
-          group_id: groupId,
+          a: `b`,
+          c: "d",
         },
+        resFormat: 3,
+        
       }
   
       // Use your backend proxy instead of direct API call
